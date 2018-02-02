@@ -308,6 +308,7 @@ function card_generate_contents(contents, card_data, options) {
     return result;
 }
 
+
 function card_repeat(card, count) {
     var result = [];
     for (var i = 0; i < count; ++i) {
@@ -317,19 +318,35 @@ function card_repeat(card, count) {
 }
 
 function card_generate_color_style(color, options) {
-    return 'style="color:' + color + '; border-color:' + color + '; background-color:' + color + '"';
+    return 'color:' + color + '; border-color:' + color + '; background-color:' + color;
 }
 
+function card_generate_size_style(options) {
+    switch (options.page_size) {
+        case "A4": page_width = 210; page_height = 297; break;
+        case "A4_l": page_width = 297; page_height = 210; break;
+        case "Letter": page_width = 216; page_height = 279; break;
+        case "Letter_l": page_width = 279; page_height = 216; break;
+    }
+    var card_width = (page_width - 10)/options.page_columns
+    var card_height = (page_height - 10)/options.page_rows
+    return 'width:' + parseInt(card_width) + 'mm; height:' + parseInt(card_height) +'mm'
+}
+
+
 function card_generate_color_gradient_style(color, options) {
-    return 'style="background: radial-gradient(ellipse at center, white 20%, ' + color + ' 120%)"';
+    return 'background: radial-gradient(ellipse at center, white 20%, ' + color + ' 120%)';
 }
 
 function card_generate_front(data, options) {
     var color = card_data_color_front(data, options);
     var style_color = card_generate_color_style(color, options);
+    var style_size = card_generate_size_style(options);
 
     var result = "";
-    result += '<div class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
+    result += '<div class="card card-size-' + options.card_size + ' ' + 
+      (options.rounded_corners ? 'rounded-corners' : '') + '" ' + 'style="' + style_color + 
+      '; ' + style_size + '">' 
     result += card_element_icon(data, options);
     result += card_element_title(data, options);
     result += card_generate_contents(data.contents, data, options);
@@ -341,9 +358,10 @@ function card_generate_front(data, options) {
 function card_generate_back(data, options) {
     var color = card_data_color_back(data, options);
     var style_color = card_generate_color_style(color, options);
+    var style_size = card_generate_size_style(options)
 	var url = data.background_image;
 	var background_style = "";
-	if (url)
+	if ((url) && (url !== ""))
 	{
 		background_style = 'style = "background-image: url(&quot;' + url + '&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;"';
 	}
@@ -355,12 +373,14 @@ function card_generate_back(data, options) {
 
     var result = "";
     console.log('options.rounded_corners', options.rounded_corners);
-    result += '<div class="card card-size-' + options.card_size + ' ' + (options.rounded_corners ? 'rounded-corners' : '') + '" ' + style_color + '>';
+    result += '<div class="card card-size-' + options.card_size + ' ' + 
+      (options.rounded_corners ? 'rounded-corners' : '') + '" ' + 'style="' + style_color + 
+      '; ' + style_size + '">' 
     result += '  <div class="card-back" ' + background_style + '>';
 	if (!url)
 	{
 		result += '    <div class="card-back-inner">';
-		result += '      <div class="card-back-icon icon-' + icon + '" ' + style_color + '></div>';
+		result += '      <div class="card-back-icon icon-' + icon + '" ' +"style=" + style_color + '></div>';
 		result += '    </div>';
 	}
     result += '  </div>';
@@ -373,7 +393,7 @@ function card_generate_empty(count, options) {
     var style_color = card_generate_color_style("white");
 
     var result = "";
-    result += '<div class="card card-size-' + options.card_size + '" ' + style_color + '>';
+    result += '<div class="card card-size-' + options.card_size + '" ' +"style=" + style_color + '>';
     result += '</div>';
 
     return card_repeat(result, count);
@@ -458,10 +478,10 @@ function card_pages_wrap(pages, options) {
 function card_pages_generate_style(options) {
     var size = "a4";
     switch (options.page_size) {
-        case "A3": size = "A3 portrait"; break;
-        case "A4": size = "210mm 297mm"; break;
-        case "A5": size = "A5 portrait"; break;
-        case "Letter": size = "letter portrait"; break;
+        case "A4": size = "A4"; break;
+        case "A4_l": size = "A4_l"; break;
+        case "Letter": size = "Letter"; break;
+        case "Letter_l": size = "Letter_l"; break;
         case "25x35": size = "2.5in 3.5in"; break;
         default: size = "auto";
     }

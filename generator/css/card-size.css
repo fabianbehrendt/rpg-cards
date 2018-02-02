@@ -28,13 +28,24 @@
 /* Chrome has problems with page sizes given in metric units. Make the paper area slightly smaller to work around this. */
 page[size="A4"] {
     width:  210mm; /* full: 210.0mm */
-    height: 296mm; /* full: 297.0mm */
+    height: 297mm; /* full: 297.0mm */
 }
+
+page[size="A4_l"] {
+    width:  297mm; /* full: 297.0mm */
+    height: 210mm; /* full: 210.0mm */
+}
+
 
 /* US letter area */
 page[size="Letter"] {
     width:  8.5in;
     height: 11.0in;
+}
+
+page[size="Letter_l"] {
+    width:  11.0in;
+    height: 8.5in;
 }
 
 page[size="25x35"] {
@@ -87,6 +98,14 @@ page[size="25x35"] {
 .card-size-75x50 .card-back-icon {
     width: 2in;
     height: 2in;
+}
+.card-size-74x210 {
+    width: 72mm;
+    height: 204mm;
+}
+.card-size-97x210 {
+    width: 97mm;
+    height: 204mm;
 }
 
 /* Card sizes that fill out the entire sheet of paper (minimal margins) */
