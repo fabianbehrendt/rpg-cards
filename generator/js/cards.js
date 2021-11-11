@@ -221,10 +221,10 @@ function card_element_dndstats(params, card_data, options) {
     result += '<table class="card-stats">';
     result += '    <tbody><tr>';
     result += '      <th class="card-stats-header">STÄ</th>';
-    result += '      <th class="card-stats-header">DEX</th>';
-    result += '      <th class="card-stats-header">CON</th>';
+    result += '      <th class="card-stats-header">GES</th>';
+    result += '      <th class="card-stats-header">KON</th>';
     result += '      <th class="card-stats-header">INT</th>';
-    result += '      <th class="card-stats-header">WIS</th>';
+    result += '      <th class="card-stats-header">WEI</th>';
     result += '      <th class="card-stats-header">CHA</th>';
     result += '    </tr>';
     result += '    <tr>';
