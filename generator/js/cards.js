@@ -220,7 +220,7 @@ function card_element_dndstats(params, card_data, options) {
     var result = "";
     result += '<table class="card-stats">';
     result += '    <tbody><tr>';
-    result += '      <th class="card-stats-header">STÄ</th>';
+    result += '      <th class="card-stats-header">STR</th>';
     result += '      <th class="card-stats-header">GES</th>';
     result += '      <th class="card-stats-header">KON</th>';
     result += '      <th class="card-stats-header">INT</th>';
